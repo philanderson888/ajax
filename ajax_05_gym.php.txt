@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>PHP tutorial</title>
+	<script src="https://code.jquery.com/jquery-3.1.1.js" crossorigin="anonymous"></script>
+	<script>
+		function fnToggle(exercise_id){
+			console.log('button ' + exercise_id + ' clicked');
+			var className = document.getElementById(exercise_id).className;
+			var done;
+			if (className=='red'){
+				done=0;
+				document.getElementById(exercise_id).className="green"; // pre-empt change
+			}
+			else{
+				done=1;
+				document.getElementById(exercise_id).className='red'; // pre-empt change
+			}
+
+			var data = { exercise_id: exercise_id, done: done};
+			console.log (data);
+			$.post("ajax_05_gym_ajax.php",data,function(successData){
+				console.log(successData);
+				if(successData==0){	
+					document.getElementById(exercise_id).className='red';
+					console.log('Changing to red');
+				}
+				if(successData==1){
+					document.getElementById(exercise_id).className="green";
+					console.log('Changing to green');
+				}
+			});
+		}
+	</script>
+	<style>
+		div{
+			height:50px
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:3em;
+		}
+		.red{
+			background-color:red;
+		}
+		.green{
+			background-color: green;
+		}
+		.bold{
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+<?php
+$server='localhost';
+$user = 'c4290920_admin01';
+$pass = '';
+$db = 'c4290920_db02';
+$con=mysqli_connect($server,$user,$pass,$db) or die ('cannot connect to database');
+$query="select * from exercises order by category";
+$result=mysqli_query($con,$query) or die ('cannot read from table');
+$num_rows=$result -> num_rows;
+$success=false;
+if($num_rows>0){
+	while($row=mysqli_fetch_array($result)){
+		$exercise_id=$row['exercise_id'];
+		$exercise=$row['exercise'];
+		$done=$row['done'];
+		if($done==''){														// cater for null values
+			$done=0;
+		}
+		$css='red';
+		if($done==1){
+			$css='green';
+		}
+		$success=true;
+		echo '<div id="'. $exercise_id .'" class="'. $css . '" onclick="fnToggle('. $exercise_id .')">' . $exercise . '</div>';
+
+	}
+}
+?>
+
+</body>
+</html>

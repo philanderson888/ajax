@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Example: Database and AJAX</title>
+</head>
+<body>
+<h2>CIW JavaScript Specialist</h2>
+<hr />
+<script type="text/javascript">
+function getXMLHttpRequest() 
+{
+    if (window.XMLHttpRequest) {
+        return new window.XMLHttpRequest;
+
+    }
+    else {
+        try {
+            return new ActiveXObject("MSXML2.XMLHTTP.3.0");
+        }
+        catch(ex) {
+			return null;
+			
+        }
+    }
+}
+
+http = getXMLHttpRequest(); 
+function requestCustomerInfo() {
+  http.open("GET", "ajax_customer_db.xml", true);
+  http.onreadystatechange=function() {
+	  
+		 if(http.readyState == 4) {
+		   var output = "";
+		   output += http.responseXML.documentElement.getElementsByTagName("Customer")[document.getElementById('CustomerID').value].getElementsByTagName("FirstName")[0].firstChild.nodeValue;
+		   output += " " + http.responseXML.documentElement.getElementsByTagName("Customer")[document.getElementById('CustomerID').value].getElementsByTagName("LastName")[0].firstChild.nodeValue;
+		   var length = http.responseXML.documentElement.getElementsByTagName("Customer").length;
+		   output += "<p>There are " + length + " records in the database</p>";
+
+		   var firstName = "";
+		   var lastName = "";
+		   for (var i = 0; i < length; i++) {
+		     firstName = http.responseXML.documentElement.getElementsByTagName("Customer")[i].getElementsByTagName("FirstName")[0].firstChild.nodeValue;
+		     lastName = http.responseXML.documentElement.getElementsByTagName("Customer")[i].getElementsByTagName("LastName")[0].firstChild.nodeValue;
+		     output += "<p>" + i + " : " + firstName + " " + lastName + "</p>";
+		   }
+		   document.getElementById('DCustomerInfo').innerHTML = output;
+
+    }
+  }
+
+  http.send(null);
+}
+</script>
+    <p>Please enter Customer ID: <input type="number" id="CustomerID" value="0" /></p> 
+    <p><input type="button" value="Get Information" onclick="requestCustomerInfo()" /></p> 
+    Name:<div id="DCustomerInfo"></div> 
+</body> 
+</html>

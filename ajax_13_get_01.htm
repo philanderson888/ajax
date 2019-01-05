@@ -1,0 +1,49 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>serializeArray demo</title>
+    <style>
+        body, select {
+            font-size: xx-large;
+            font-family: Arial;
+        }
+
+        #results {
+            border: solid 2px gray;
+            background-color: burlywood;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="results">
+        <h1>Data returned from the database below:</h1>
+        <h3><a href="http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName">http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName</a></h3>
+    </div>
+
+    <script>
+      
+        $.get('http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName',
+            function(data) {
+                console.log('==========================');
+                console.log('Using the $.get function');
+                console.log(data);
+                $('#results').append('<h1>Using the $.get function to retrieve data</h1>');
+                $('#results').append('<p>Data length = ' + data.value.length.toString() + '</p>');
+
+                for (i = 0; i< data.value.length-1;i++)
+                {
+                    console.log('Name [' + (i) + '] = ' + data.value[i]);
+                    $('#results').append('<p>Name [' + i + '] = ' + data.value[i].ProductName + '<p>');
+                }
+                console.log('==========================');
+            }
+        );
+  
+
+    </script>
+
+</body>
+</html>

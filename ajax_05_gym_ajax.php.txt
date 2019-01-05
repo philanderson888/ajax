@@ -1,0 +1,20 @@
+<?php
+if(strlen($_POST['exercise_id'])>0){
+	$exercise_id=$_POST['exercise_id'];
+	$done=$_POST['done'];
+	$server='localhost';
+	$user = 'c4290920_admin01';
+	$pass = '';
+	$db = 'c4290920_db02';
+	$con=mysqli_connect($server,$user,$pass,$db) or die ('cannot connect to database');
+	if($done==''||$done=='0'){
+		$done=1;
+	}
+	else{
+		$done=0;
+	}
+	$query="update exercises set done='$done' where exercise_id='$exercise_id'";
+	$result=mysqli_query($con,$query) or die ('query failed');
+}
+echo $done;
+?>

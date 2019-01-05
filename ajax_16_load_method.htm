@@ -1,0 +1,68 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>serializeArray demo</title>
+    <style>
+        body, select {
+            font-size: xx-large;
+            font-family: Arial;
+        }
+
+        div {
+            border: solid 2px gray;
+            background-color: burlywood;
+            margin:20px 0;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+
+    <section id="header">
+        <h1>Data returned using AJAX load() method from the database below:</h1>
+        <h3><a href="http://services.odata.org/V4/Northwind/Northwind.svc">http://services.odata.org/V4/Northwind/Northwind.svc</a></h3>
+
+    </section>
+    <div id="northwind">
+
+    </div>
+
+    <section id="header">
+        <h1>Data returned using AJAX load() method from the database below:</h1>
+        <h3><a href="http://services.odata.org/V4/Northwind/Northwind.svc/Products">http://services.odata.org/V4/Northwind/Northwind.svc/Products</a></h3>
+
+    </section>
+
+
+    <div id="products">
+    </div>
+
+
+    <section id="header">
+        <h1>Data returned using AJAX load() method from the database below:</h1>
+        <h3><a href="http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName">http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName</a></h3>
+ 
+    </section>
+
+    <div id="product_name">
+
+    </div>
+    <script>
+
+
+        $('#northwind').load('http://services.odata.org/V4/Northwind/Northwind.svc');
+
+
+        $('#products').load('http://services.odata.org/V4/Northwind/Northwind.svc/Products');
+
+
+        $('#product_name').load('http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName');
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Jade</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+      function fnAjaxChangeText(){
+        
+      }
+      $(document).ready(function(){
+        $("#btn1").click(function(){
+          $('#div1').load("ajax_text2.txt");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>AJAX reading from text file 2</h1>
+    <button id="btn1">Click To Change Text</button>
+    <div id="div1" onclick="fnAjaxChangeText()">Original Text</div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>serializeArray demo</title>
+    <style>
+        body, select {
+            font-size: xx-large;
+            font-family: Arial;
+        }
+
+        #results {
+            border: solid 2px gray;
+            background-color: burlywood;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="results">
+        <h1>Data returned from the database below:</h1>
+        <h3><a href="http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName">http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName</a></h3>
+        <h3>Check the F12 Console output for the data logged out from the getJSON query</h3>
+    </div>
+
+    <script>
+
+        $.getJSON('http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName',
+            function(data) {
+                console.log('Using the $.getJSON function');
+                console.log(data);
+            }
+        );
+
+
+        $.getJSON('http://services.odata.org/V4/Northwind/Northwind.svc/Products',
+            function (data) {
+                console.log('Using the $.getJSON function');
+                console.log(data);
+            }
+        );
+
+
+        $.getJSON('http://services.odata.org/V4/Northwind/Northwind.svc',
+            function (data) {
+                console.log('Using the $.getJSON function');
+                console.log(data);
+            }
+        );
+
+
+        $.getJSON('http://services.odata.org/V4/Northwind/Northwind.svc/Customers',
+        function (data) {
+            console.log('Using the $.getJSON function to getJSON on Customers');
+            console.log(data);
+        }
+);
+
+       
+
+    </script>
+
+</body>
+</html>

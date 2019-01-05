@@ -1,0 +1,23 @@
+<html>
+<body>
+	Check F12 Console for output
+
+	<script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+
+	<script>
+
+var root = 'http://jsonplaceholder.typicode.com';
+
+$.ajax({
+  url: root + '/posts/1',
+  method: 'GET'
+}).then(function(data) {
+  console.log(data);
+});
+
+</script>
+</body>
+</html>

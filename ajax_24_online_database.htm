@@ -1,0 +1,33 @@
+<html>
+<body>
+  <button type="button" onclick="fnGetOne()">Get One Object</button>
+  <div id="displayOne"></div>
+  <button type="button" onclick="fnGetAll()">Get 100 Objects</button>
+  <div id="displayAll"></div>
+	<script  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+	<script>
+	function fnGetOne(){
+		var root = 'http://jsonplaceholder.typicode.com';
+		$.ajax({
+		  url: root + '/posts/1',
+		  method: 'GET'
+		}).then(function(data) {
+		  console.log(data);
+		  $('#displayOne').text(JSON.stringify(data));
+		});
+	}
+	function fnGetAll(){
+	  var root = 'http://jsonplaceholder.typicode.com';
+		$.ajax({
+	  	url: root + '/posts',
+	  	method: 'GET'
+		}).then(function(data) {
+	  	console.log(data);
+		  $('#displayAll').text(JSON.stringify(data));
+		});
+	}
+	</script>
+</body>
+</html>

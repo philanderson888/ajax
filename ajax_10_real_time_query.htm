@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.1.1.js"
+            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <section>
+        <h4>AJAX: Sample $(ajax) request with jQuery</h4>
+        <button class="btn btn-success" id="AjaxClick">Get</button>
+        <script>
+                $(document).ready(function () {
+                    $('#AjaxClick').on('click', function () {
+                        $.ajax({
+                            url: "https://jsonplaceholder.typicode.com/posts/2",
+                            method: 'GET',
+                            success: function (data) {
+                                console.log(data);
+                                $("#returnedAjax2").html(JSON.stringify(data));
+                            }
+                        });
+                    });
+                });
+        </script>
+        <label>Returned this:</label>
+        <code id="returnedAjax2"></code>
+    </section>
+
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>serializeArray demo</title>
+    <style>
+        body, select {
+            font-size: xx-large;
+            font-family:Arial;
+        }
+
+        #results {
+            border:solid 2px gray;
+            background-color:burlywood;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+    
+    <div id="results">
+    <h1>Products returned from the database below:</h1>
+        <h3><a href="http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName">http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName</a></h3>
+    </div>
+
+    <script>
+        $.ajax({
+            url: 'http://services.odata.org/V4/Northwind/Northwind.svc',
+            success: function (data) {
+                console.log('URL: http://services.odata.org/V4/Northwind/Northwind.svc');
+                console.log(data.value);
+                var s = $('#results').html().toString();
+                console.log('s equals ' + s);
+                console.log('Length Of Data Array Returned Is ' + data.value.length.toString());
+                s += '<h1>URL = http://services.odata.org/V4/Northwind/Northwind.svc</h1>';
+                s += 'Length Of Data Array Returned Is ' + data.value.length.toString();
+                for (i = 0; i < data.value.length; i++) {
+                    console.log('data.value = ' + data.value[i].name);
+                    s += '<p>Name: ' + data.value[i].name + '</p>';
+                }
+                console.log('s equals ' + s);
+                $('#results').html(s);
+
+                console.log('Entering into jQuery each loop logging this.toString()');
+                $.each(data, function () {
+                    $.each(this, function (j) {
+                        console.log(this.toString());
+
+                    });
+
+                });
+
+                console.log('Entering into jQuery each loop logging j.toString()');
+                $.each(data, function () {
+                    $.each(this, function (j) {
+                        console.log(j.toString());
+                    });
+                });
+
+            }
+        });
+
+
+
+        $.ajax({
+            url: 'http://services.odata.org/V4/Northwind/Northwind.svc/Products',
+            success: function (data) {
+                console.log('URL = http://services.odata.org/V4/Northwind/Northwind.svc/Products');
+                console.log(data.value);
+                var s = $('#results').html().toString();
+                console.log('s equals ' + s);
+                console.log('Length Of Data Array Returned Is ' + data.value.length.toString());
+                s += '<h1>URL = http://services.odata.org/V4/Northwind/Northwind.svc/Products</h1>';
+                s += 'Length Of Data Array Returned Is ' + data.value.length.toString();
+                for (i = 0; i < data.value.length; i++) {
+                    console.log('data.value = ' + data.value[i].ProductID);
+                    s += '<p>Product ID: ' + data.value[i].ProductID + '</p>';
+                    console.log('data.value = ' + data.value[i].ProductName);
+                    s += '<p>Product Name: ' + data.value[i].ProductName + '</p>';
+
+                }
+                console.log('s equals ' + s);
+                $('#results').html(s);
+
+                console.log('Entering into jQuery each loop logging this.toString()');
+                $.each(data, function () {
+                    $.each(this, function (j) {
+                        console.log(this.toString());
+
+                    });
+
+                });
+
+                console.log('Entering into jQuery each loop logging j.toString()');
+                $.each(data, function () {
+                    $.each(this, function (j) {
+                        console.log(j.toString());
+                    });
+                });
+
+            }
+        });
+
+
+
+
+        $.ajax({
+            url: 'http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName',
+            success: function (data) {
+                console.log('URL: http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName');
+                console.log(data.value);
+                var s = $('#results').html().toString();
+                console.log('s equals ' + s);
+                console.log('Length Of Data Array Returned Is ' + data.value.length.toString());
+                s += '<h1>URL = http://services.odata.org/V4/Northwind/Northwind.svc/Products?$select=ProductName</h1>';
+                s += 'Length Of Data Array Returned Is ' + data.value.length.toString();
+                for (i = 0; i < data.value.length; i++) {
+                    console.log('data.value = ' + data.value[i].ProductID);
+                    s += '<p>Product ID: ' + data.value[i].ProductID + '</p>';
+                    console.log('data.value = ' + data.value[i].ProductName);
+                    s += '<p>Product Name: ' + data.value[i].ProductName + '</p>';
+
+                }                
+                console.log('s equals ' + s);
+                $('#results').html(s);
+
+                console.log('Entering into jQuery each loop logging this.toString()');
+                $.each(data, function () {
+                    $.each(this, function (j) {
+                        console.log(this.toString());
+                        
+                    });
+
+                });
+
+                console.log('Entering into jQuery each loop logging j.toString()');
+                $.each(data, function () {
+                    $.each(this, function (j) {
+                        console.log(j.toString());
+                    });
+                });
+
+            }
+        });
+
+
+    </script>
+
+</body>
+</html>

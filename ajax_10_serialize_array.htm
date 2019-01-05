@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX JSON Array</title>
+    <script type='text/javascript' src='jquery.min.js'></script>
+    <style>
+        input[type="submit"]{
+            font-size:xx-large;
+            font-family:Arial;
+            background-color:aquamarine;
+            border:2px solid;
+            border-color:blueviolet;
+        }
+        input[type="submit"]:hover{
+            background-color:gainsboro;
+            border-color:ActiveBorder;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div><input type="text" name="a" value="1" id="a"></div>
+        <div><input type="text" name="b" value="2" id="b"></div>
+        <div><input type="hidden" name="c" value="3" id="c"></div>
+        <div>
+            <textarea name="d" rows="8" cols="40">4</textarea>
+        </div>
+        <div>
+            <select name="e">
+                <option value="5" selected="selected">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+        </div>
+        <div>
+            <input type="checkbox" name="f" value="8" id="f">
+        </div>
+        <div>
+            <input type="submit" name="g" value="Submit" id="g">
+        </div>
+    </form>
+    <script>
+        $().ready(function () {
+            $.param({ a: { b: 1, c: 2, }, d: [3, 4, { e: 5 }] });
+            $('form').submit(function (event) {
+                console.log($(this).serializeArray());
+                event.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿    <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>serializeArray demo</title>
+    <style>
+        body, select {
+            font-size: xx-large;
+            font-family: Arial;
+        }
+
+        div {
+            border: solid 2px gray;
+            background-color: burlywood;
+            margin:20px 0;
+        }
+        #completed, #deferred{
+            background-color:bisque;
+        }
+
+    </style>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+
+    <section id="header">
+        <h1>Data returned using AJAX get() method from the database below:</h1>
+        <h3><a href="http://services.odata.org/V4/Northwind/Northwind.svc/Products">http://services.odata.org/V4/Northwind/Northwind.svc/Products</a></h3>
+ 
+    </section>
+
+    <div id="results">
+
+    </div>
+
+    <div id="completed">
+
+    </div>
+
+    <div id="deferred">
+
+    </div>
+
+    <script>
+
+
+
+        $.get('http://services.odata.org/V4/Northwind/Northwind.svc/Products', function (data) {
+               
+            console.log('==========================');
+            console.log('Using the $.get function');
+            console.log(data);
+            console.log('==========================');
+            $('#results').append('<h1>Using the $.get function to retrieve data</h1>');
+            $('#results').append('<p>Data length = ' + data.value.length.toString() + '</p>');
+            var discontinuedStockTotal = 0;
+            var stockTotal = 0;
+
+            for (i = 0; i < data.value.length - 1; i++) {
+                console.log('Name [' + (i) + '] = ' + data.value[i]);
+                $('#results').append('<ul>');
+                $('#results').append('<strong>Item [' + i + ']</strong>');
+                $('#results').append('<li>CategoryID [' + i + '] = ' + data.value[i].CategoryID + '</li>');
+                $('#results').append('<li>Discontinued [' + i + '] = ' + data.value[i].Discontinued + '</li>');
+
+                $('#results').append('<li>ProductName [' + i + '] = ' + data.value[i].ProductName + '</li>');
+                $('#results').append('<li>Quantity Per Unit = ' + data.value[i].QuantityPerUnit + '</li>');
+                $('#results').append('<li>Units In Stock = ' + data.value[i].UnitsInStock + '</li>');
+                discontinuedStockTotal += data.value[i].Discontinued * data.value[i].UnitsInStock;
+                stockTotal += (data.value[i].Discontinued-1)*-1 * data.value[i].UnitsInStock;
+                $('#results').append('</ul>');
+            }
+            $('#results').append('<p>Number of discontinued items in stock : ' + discontinuedStockTotal + '<p>');
+            $('#results').append('<p>Number of items in stock : ' + stockTotal + '<p>');
+                
+        })
+
+
+
+         .then(function () {
+             $('#completed').append('<p>Finished reading items using $get function<p>'); //this is truly happening AFTER the return
+             console.log('Inside the then function');
+         })
+
+        myDeferred()
+
+       .then(function () {
+           var d = $.Deferred();
+           setTimeout(function () { d.resolve(); }, 5000);
+           $('#deferred').append('<p>This deferred function is happening AFTER THE DEFERRED FUNCTION HAS RUN, WHICH ONLY RAN AFTER THE DATA COMPLETED BEING RETURNED</p>');
+           return d.promise();
+           
+       })
+
+        function myDeferred() {
+            var d = $.Deferred();
+            setTimeout(function () { d.resolve(); }, 5000);
+            return d.promise();
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
